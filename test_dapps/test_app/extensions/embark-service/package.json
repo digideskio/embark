@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "haml": "^0.4.3"
+    "haml": "0.4.3"
   }
 }

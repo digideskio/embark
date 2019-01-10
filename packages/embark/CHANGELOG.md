@@ -1,8 +1,8 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-<a name="4.0.0-beta.0"></a>
 # [4.0.0-beta.0](https://github.com/embark-framework/embark/compare/v4.0.0-alpha.3...v4.0.0-beta.0) (2019-01-10)
 
 
@@ -26,7 +26,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
-<a name="4.0.0-alpha.3"></a>
+
+
 # [4.0.0-alpha.3](https://github.com/embark-framework/embark/compare/v4.0.0-alpha.2...v4.0.0-alpha.3) (2018-12-31)
 
 
@@ -92,7 +93,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
-<a name="4.0.0-alpha.2"></a>
+
+
 # [4.0.0-alpha.2](https://github.com/embark-framework/embark/compare/v4.0.0-alpha.1...v4.0.0-alpha.2) (2018-12-05)
 
 
