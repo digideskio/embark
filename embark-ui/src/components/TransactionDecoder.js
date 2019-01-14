@@ -20,20 +20,26 @@ class TransactionDecoder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      transactionHash: this.props.transactionHash || ''
+      transactionHash: this.props.transactionHash || '',
+      isRawTxHash: false
     };
   }
 
   handleTransactionHashChange(event) {
     const transactionHash = event.target.value;
-    this.setState({transactionHash});
+    this.setState({...this.state, transactionHash});
+  }
+
+  toggleTransactionHashType(event) {
+    const isRawTxHash = event.target.checked;
+    this.setState({...this.state, isRawTxHash});
   }
 
   fetchTransaction(e) {
     e.preventDefault();
     if (this.state.transactionHash !== '') {
       this.props.history.push({
-        search: `hash=${this.state.transactionHash}`
+        search: `hash=${this.state.transactionHash}&isRawTxHash=${this.state.isRawTxHash}`
       });
     }
   }
@@ -47,6 +53,7 @@ class TransactionDecoder extends React.Component {
         <CardBody>
           <Form onSubmit={e => this.fetchTransaction(e)}>
             <FormGroup>
+              <Input addon type="checkbox" aria-label="Checkbox for marking this as raw tx hash" value={this.state.isRawTxHash} onChange={e => this.toggleTransactionHashType(e)} /> Raw transaction hash
               <InputGroup>
                 <Input type="text" id="transactionHash" placeholder="Enter transaction hash" value={this.state.transactionHash} onChange={e => this.handleTransactionHashChange(e)}/>
                 <InputGroupAddon addonType="append">
@@ -67,7 +74,7 @@ class TransactionDecoder extends React.Component {
 }
 
 TransactionDecoder.propTypes = {
-  history: PropTypes.array,
+  history: PropTypes.object,
   transaction: PropTypes.object,
   transactionHash: PropTypes.string
 };

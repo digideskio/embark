@@ -1,6 +1,8 @@
 const Web3 = require('web3');
 const async = require('async');
 const Provider = require('./provider.js');
+const Transaction = require('ethereumjs-tx');
+const ethUtil = require('ethereumjs-util');
 const utils = require('../../utils/utils');
 const constants = require('../../constants');
 const embarkJsUtils = require('embarkjs').Utils;
@@ -411,12 +413,23 @@ class BlockchainConnector {
       'get',
       '/embark-api/blockchain/transactions/:hash',
       (req, res) => {
-        self.getTransaction(req.params.hash, (err, transaction) => {
-          if (err) {
-            self.logger.error(err);
-          }
-          res.send(transaction);
-        });
+        const isRawTxHash = req.query.isRawTxHash && req.query.isRawTxHash === 'true';
+
+        if (isRawTxHash) {
+          self.getTransactionByRawTransactionHash(req.params.hash, (err, transaction) => {
+            if (err) {
+              self.logger.error(err);
+            }
+            res.send(transaction);
+          });
+        } else {
+          self.getTransaction(req.params.hash, (err, transaction) => {
+            if (err) {
+              self.logger.error(err);
+            }
+            res.send(transaction);
+          });
+        }
       }
     );
 
@@ -634,6 +647,24 @@ class BlockchainConnector {
 
   getTransactionByHash(hash, cb) {
     this.web3.eth.getTransaction(hash, cb);
+  }
+
+  getTransactionByRawTransactionHash(hash, cb) {
+    const rawData = Buffer.from(ethUtil.stripHexPrefix(hash), 'hex');
+    const tx = new Transaction(rawData, 'hex');
+    const transaction = {
+      from: `0x${tx.getSenderAddress().toString('hex').toLowerCase()}`,
+      gasPrice: tx.gasPrice.toString('utf8'),
+      input: `0x${tx.input.toString('hex').toLowerCase()}`,
+      nonce: tx.nonce.toString('utf8'),
+      v: `0x${tx.v.toString('hex').toLowerCase()}`,
+      r: `0x${tx.r.toString('hex').toLowerCase()}`,
+      s: `0x${tx.s.toString('hex').toLowerCase()}`,
+      value: tx.value.toString('utf8'),
+      to: `0x${tx.to.toString('hex').toLowerCase()}`,
+      rawHash: hash
+    };
+    cb(null, transaction);
   }
 
   getGasPrice(cb) {

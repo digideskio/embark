@@ -24,8 +24,8 @@ export function getTransactions(state) {
   return state.entities.transactions;
 }
 
-export function getTransaction(state, hash) {
-  return state.entities.transactions.find((transaction) => transaction.hash === hash);
+export function getTransaction(state, hash, isRawHash) {
+  return state.entities.transactions.find((transaction) => isRawHash === 'true' ? transaction.rawHash === hash : transaction.hash === hash);
 }
 
 export function getTransactionsByAccount(state, address) {

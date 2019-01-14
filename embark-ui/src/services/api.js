@@ -88,7 +88,12 @@ export function fetchTransactions(payload) {
 }
 
 export function fetchTransaction(payload) {
-  return get(`/blockchain/transactions/${payload.hash}`, ...arguments);
+  return get(`/blockchain/transactions/${payload.hash}`, {
+    params: {
+      isRawTxHash: payload.isRawTxHash
+    },
+    credentials: payload.credentials
+  });
 }
 
 export function fetchProcesses() {
