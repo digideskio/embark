@@ -98,7 +98,7 @@ export const transactions = {
 
 export const TRANSACTION = createRequestTypes('TRANSACTION');
 export const transaction = {
-  request: (hash, isRawTxHash) => action(TRANSACTION[REQUEST], {hash, isRawTxHash}),
+  request: (hash) => action(TRANSACTION[REQUEST], {hash}),
   success: (transaction) => action(TRANSACTION[SUCCESS], {transactions: [transaction]}),
   failure: (error) => action(TRANSACTION[FAILURE], {error})
 };

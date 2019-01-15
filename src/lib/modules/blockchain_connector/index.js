@@ -413,23 +413,12 @@ class BlockchainConnector {
       'get',
       '/embark-api/blockchain/transactions/:hash',
       (req, res) => {
-        const isRawTxHash = req.query.isRawTxHash && req.query.isRawTxHash === 'true';
-
-        if (isRawTxHash) {
-          self.getTransactionByRawTransactionHash(req.params.hash, (err, transaction) => {
-            if (err) {
-              self.logger.error(err);
-            }
-            res.send(transaction);
-          });
-        } else {
-          self.getTransaction(req.params.hash, (err, transaction) => {
-            if (err) {
-              self.logger.error(err);
-            }
-            res.send(transaction);
-          });
-        }
+        self.getTransactionByRawTransactionHash(req.params.hash, (err, transaction) => {
+          if (err) {
+            self.logger.error(err);
+          }
+          res.send(transaction);
+        });
       }
     );
 
@@ -662,7 +651,7 @@ class BlockchainConnector {
       s: `0x${tx.s.toString('hex').toLowerCase()}`,
       value: tx.value.toString('utf8'),
       to: `0x${tx.to.toString('hex').toLowerCase()}`,
-      rawHash: hash
+      hash
     };
     cb(null, transaction);
   }

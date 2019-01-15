@@ -17,19 +17,18 @@ const getQueryParams = (props) => {
 
 class TransactionDecoderContainer extends Component {
   componentDidMount() {
-    const { hash, isRawTxHash } = getQueryParams(this.props);
+    const { hash } = getQueryParams(this.props);
     if (hash) {
-      this.props.fetchTransaction(hash, isRawTxHash);
+      this.props.fetchTransaction(hash);
     }
   }
 
   componentDidUpdate(prevProps) {
-    const { hash, isRawTxHash } = getQueryParams(this.props);
+    const { hash } = getQueryParams(this.props);
     const prevHash = getQueryParams(prevProps).hash;
-    const prevIsRawTxHash = getQueryParams(prevProps).isRawTxHash;
 
-    if (hash && (hash !== prevHash || isRawTxHash !== prevIsRawTxHash)) {
-      this.props.fetchTransaction(hash, isRawTxHash);
+    if (hash && hash !== prevHash) {
+      this.props.fetchTransaction(hash);
     }
   }
 
@@ -55,7 +54,7 @@ TransactionDecoderContainer.propTypes = {
 
 function mapStateToProps(state, props) {
   return {
-    transaction: getTransaction(state, getQueryParams(props).hash, getQueryParams(props).isRawTxHash),
+    transaction: getTransaction(state, getQueryParams(props).hash),
     error: state.errorMessage,
     loading: state.loading
   };
