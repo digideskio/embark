@@ -19,9 +19,9 @@ try {
     pkgJson.name = 'embark_demo';
     pkgJson.private = true;
     if (!pkgJson.scripts) pkgJson.scripts = {};
-    pkgJson.scripts.clean = 'npx cross-env-shell "$node EMBARK_BIN reset || exit 0"';
+    pkgJson.scripts.clean = 'npx cross-env-shell "node $EMBARK_BIN reset || exit 0"';
     pkgJson.scripts.reset = 'npx rimraf node_modules';
-    pkgJson.scripts.test = 'cross-env-shell "$node EMBARK_BIN test"';
+    pkgJson.scripts.test = 'cross-env-shell "node $EMBARK_BIN test"';
     fs.writeFileSync(pkgJsonPath, JSON.stringify(pkgJson, null, 2));
     execSync(`npm install --loglevel=error`, {cwd: demoDir});
   }
