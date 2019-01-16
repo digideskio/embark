@@ -6,4 +6,5 @@
 **/dist
 **/package-lock.json
 **/node_modules
+packages/embark_demo
 !/yarn.lock
