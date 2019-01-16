@@ -48,8 +48,8 @@
     "testQA": "yarn testQA_",
     "testQA_": "cross-env CMD=test_ yarn with-embark:pkg",
     "test_": "yarn lruns --concurrency=1 test",
-    "with-embark": "npx cross-env EMBARK_BIN=../../../packages/embark/bin/embark SCRIPT_EMBARK_BIN=../../packages/embark/bin/embark yarn with-embark_ yarn with-embark_",
-    "with-embark:pkg": "npx cross-env EMBARK_BIN=../../.embark/packaged/node_modules/embark/bin/embark SCRIPT_EMBARK_BIN=../.embark/packaged/node_modules/embark/bin/embark yarn with-embark_ yarn with-embark_",
+    "with-embark": "npx cross-env EMBARK_BIN=../../../packages/embark/bin/embark SCRIPT_EMBARK_BIN=../../packages/embark/bin/embark yarn with-embark_",
+    "with-embark:pkg": "npx cross-env EMBARK_BIN=../../.embark/packaged/node_modules/embark/bin/embark SCRIPT_EMBARK_BIN=../.embark/packaged/node_modules/embark/bin/embark yarn with-embark_",
     "with-embark_": "cross-env-shell EMBARK_NO_SHIM=t \"yarn $CMD\""
   }
 }
