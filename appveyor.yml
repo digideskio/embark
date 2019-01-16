@@ -15,5 +15,5 @@ install:
   - echo install managed by package.json script 'packageCI'
 test_script:
   - yarn packageCI
-  - cd test_dapps && yarn install && yarn testQA
+  - cd test_dapps && yarn testCI
 build: off

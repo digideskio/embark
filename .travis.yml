@@ -14,4 +14,4 @@ install:
   - echo install managed by package.json script 'packageCI'
 script:
   - yarn packageCI
-  - yarn test_dappsCI
+  - cd test_dapps && yarn testCI
