@@ -5,8 +5,6 @@ const fs = require('fs-extra');
 const glob = require('glob');
 const path = require('path');
 
-const execSyncInherit = (cmd) => execSync(cmd, {stdio: 'inherit'});
-
 try {
   const {version} = require('../../lerna.json');
   const tarballs = glob.sync(
@@ -15,17 +13,11 @@ try {
   if (!tarballs.length) throw new Error();
   const workDir = path.join(__dirname, '../.embark/packaged');
   fs.mkdirpSync(workDir);
-  const setup = [
-    `cd ${workDir}`,
-    `npm init -y`
-  ].join(' && ');
-  execSync(setup);
-  const install = [
-    `cd ${workDir}`,
-    `npm install --no-package-lock ${tarballs.join(' ')}`
-  ].join(' && ');
+  const setup = `npm init -y`;
+  execSync(setup, {cwd: workDir});
+  const install = `npm install --no-package-lock ${tarballs.join(' ')}`;
   console.log(`${install}\n`);
-  execSyncInherit(install);
+  execSync(install, {cwd: workDir, stdio: 'inherit'});
 } catch (e) {
   process.exit(1);
 }
